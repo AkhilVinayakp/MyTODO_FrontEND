@@ -92,7 +92,7 @@
 }
 
     .card_home:first-child {
-        background: #fafafa;
+        background: #2a303c;
         height: 10px;
         border-radius: 5px 5px 0 0;
         margin: 0 10px;
@@ -102,10 +102,10 @@
     .card_home .title {
         position: relative;
         z-index: 1;
-        border-left: 5px solid #f7033c;
+        border-left: 5px solid #eddc25de;
         margin: 0 0 35px;
-        padding: 10px 0 10px 50px;
-        color: #f1033b;
+        padding: 10px 0 10px 12px;
+        color: #eaed25;
         font-size: 32px;
         font-weight: 600;
         text-transform: uppercase;
@@ -130,7 +130,7 @@
         }
 
             .card_home .input-container_home input:focus ~ label {
-                color: #9d9d9d;
+                color: #11e806;
                 transform: translate(-12%, -50%) scale(0.75);
             }
 
@@ -139,7 +139,7 @@
             }
 
             .card_home .input-container_home input:valid ~ label {
-                color: #9d9d9d;
+                color: #11e806;
                 transform: translate(-12%, -50%) scale(0.75);
             }
 
@@ -147,7 +147,7 @@
             position: absolute;
             top: 0;
             left: 0;
-            color: #757575;
+            color: #f000ec;
             font-size: 24px;
             font-weight: 300;
             line-height: 60px;
@@ -158,7 +158,7 @@
             position: absolute;
             left: 0;
             bottom: 0;
-            background: #757575;
+            background: #f000ec;
             width: 100%;
             height: 1px;
         }
@@ -166,7 +166,7 @@
             .card_home .input-container_home .bar:before, .card_home .input-container_home .bar:after {
                 content: "";
                 position: absolute;
-                background: #ed2553;
+                background: #11e806;
                 width: 0;
                 height: 2px;
                 transition: 0.2s ease;

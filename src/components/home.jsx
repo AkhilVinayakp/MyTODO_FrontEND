@@ -4,7 +4,7 @@ import Register from "./register";
 
 const Home = (props)=>{
     function invokeToggler(){
-        const toggler = document.querySelector(".toggle");
+        const toggler = document.querySelector(".container_home");
         console.log("toggling")
         if(toggler.classList.contains('active')){
             toggler.classList.remove('active');
@@ -17,7 +17,7 @@ const Home = (props)=>{
         <div className="mt-24">
             <div className="container_home">
             <div className="card_home" />
-            <div className="card_home glass p-12 rounded-xl">
+            <div className="card_home glass rounded-xl py-12">
             <h1 className="title">Login</h1>
             <form>
                 <div className="input-container_home">
@@ -37,7 +37,7 @@ const Home = (props)=>{
                 </div>
             </form>
             </div>
-            <div className="card_home alt">
+            <div className="card_home alt glass">
             <div className="toggle" onClick={invokeToggler} />
             <h1 className="title">
                 Register
