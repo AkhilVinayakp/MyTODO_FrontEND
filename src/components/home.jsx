@@ -1,10 +1,14 @@
 import { useState } from "react";
 import "./home.css"
-import Login from "./login";
-import Register from "./register";
+// import Login from "./login";
+// import Register from "./register";
+import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Home = (props)=>{
+    
     function invokeToggler(e){
         console.log(e)
         const toggler = document.querySelector(".container_home");
@@ -16,17 +20,50 @@ const Home = (props)=>{
             toggler.classList.add("active");
         }
     }
-    const [email, setEmail] = useState(null);
-    const [password, setPassword] = useState(null);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     // for registration
-    const [name, setName] = useState(null);
-    const [regEmail, setRegEmail] = useState(null);
-    const [regPass, setRegPass] = useState(null);
-    const registerUser = ()=>{
-        
+    const [name, setName] = useState("");
+    const [regEmail, setRegEmail] = useState("");
+    const [regPass, setRegPass] = useState("");
+    const registerUser = (event)=>{
+        event.preventDefault();
+        if(![name, email, password].every(e=>e)){
+            toast("All fields are required");
+            return;
+        }
+        axios.post('/register',{
+            name,
+            email:regEmail,
+            password:regPass
+        }).then(response =>{
+            console.log(response)
+            toast("Wow so easy, Please Login!");
+            // setting all the inserted values to null
+            setName("");
+            setRegEmail("");
+            setRegPass("");
+            const toggler = document.querySelector(".container_home");
+            toggler.classList.remove("active");
+        })
+        .catch(error=>console.log(error))
     }
+
+    const loginUser = ()=>{
+        axios.post('/login', {
+            email,
+            password
+        }).then(response=>{
+            console.log(response)
+        })
+        .catch((error)=>{
+            console.log(error);
+        })
+    }
+
     return (
         <div className="mt-24">
+            <ToastContainer></ToastContainer>
             <div className="container_home">
             <div className="card_home" />
             <div className="card_home glass rounded-xl py-12">
@@ -43,7 +80,7 @@ const Home = (props)=>{
                 <div className="bar" />
                 </div>
                 <div className="button-container_home">
-                <button>
+                <button onClick={loginUser} type="submit">
                     <span>Go</span>
                 </button>
                 </div>
@@ -59,18 +96,18 @@ const Home = (props)=>{
             </h1>
             <form>
                 <div className="input-container_home">
-                <input type="#{type}" id="reg_name" required="required" value={name} onChange={(e)=>setName(e.target.value)} />
+                <input type="text" id="reg_name" required="required" value={name} onChange={(e)=>setName(e.target.value)} />
                 <label htmlFor="reg_email">Name</label>
                 <div className="bar" />
                 </div>
                 <div className="input-container_home">
-                <input type="#{type}" id="reg_email" required="required" value={regEmail} onChange={(e)=>{setRegEmail(e.target.value)}} />
+                <input type="text" id="reg_email" required="required" value={regEmail} onChange={(e)=>{setRegEmail(e.target.value)}} />
                 <label htmlFor="reg_email">Email</label>
                 <div className="bar" />
                 </div>
                 <div className="input-container_home">
-                <input type="#{type}" id="reg_password" required="required" value={regPass} onChange={(e)=>{setRegPass(e.target.value)}} />
-                <label htmlFor="#{label}">Password</label>
+                <input type="password" id="reg_password" required="required" value={regPass} onChange={(e)=>{setRegPass(e.target.value)}} />
+                <label htmlFor="reg_password">Password</label>
                 <div className="bar" />
                 </div>
                 <div className="button-container_home">
