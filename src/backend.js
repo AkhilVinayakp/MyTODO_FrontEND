@@ -2,7 +2,7 @@
  * Backend configuration to connect with the fron end  
  */
 
-export default API = {
-    userApi: process.env.BACKENDAPI_USER,
-    todoApi: process.env.BACKENDAPI_TODO
+export const API = {
+    userApi: "http://localhost:3000",
+    todoApi: "http://localhost:3000/api"
 }

@@ -1,6 +1,27 @@
+import { useEffect, useState } from "react";
 import Todo from "./Todo";
+import { Navigate } from "react-router-dom";
 
 const Main = ()=>{
+    // useEffect hook to check whether the user is already logged in or not
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    useEffect(()=>{
+        const user = localStorage.getItem("user");
+        const jwt = localStorage.getItem("jwt");
+        // TODO : token can be expired if it is redirect to login page.
+        if(jwt && user){
+            // user already signed in so allow access.
+           setIsAuthenticated(true)
+        }
+        else{
+            // TODO : need update? redirection to the login page
+            setIsAuthenticated(false);
+        }
+    },[]);
+    if(!isAuthenticated){
+        // redirection
+       return <Navigate replace to={'/login'}></Navigate>
+    }
     return(
         <div className="flex justify-center h-screen items-center py-12">
             <div className="card w-[956px] h-full glass">
