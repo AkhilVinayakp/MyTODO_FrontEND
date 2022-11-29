@@ -1,16 +1,15 @@
 import { useState } from "react";
 import "./home.css"
-// import Login from "./login";
-// import Register from "./register";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { API } from "../backend";
+import { useNavigate } from "react-router-dom";
 
 const Home = (props)=>{
     
     function invokeToggler(e){
-        console.log(e)
+
         const toggler = document.querySelector(".container_home");
         console.log("toggling")
         if(toggler.classList.contains('active') && e.target.className === "close"){
@@ -26,6 +25,7 @@ const Home = (props)=>{
     const [name, setName] = useState("");
     const [regEmail, setRegEmail] = useState("");
     const [regPass, setRegPass] = useState("");
+    const navigate = useNavigate();
     const registerUser = (event)=>{
         event.preventDefault();
         if(![name, email, password].every(e=>e)){
@@ -49,17 +49,39 @@ const Home = (props)=>{
         .catch(error=>console.log(error))
     }
 
-    const loginUser = ()=>{
-        axios.post('/login', {
+    const loginUser = (event)=>{
+        event.preventDefault();
+        console.log("sending the request through the API:", `${API.userApi}/login`)
+        axios.post(`${API.userApi}/login`, {
             email,
             password
         }).then(response=>{
-            console.log(response)
+            console.log("processed succesfully")
+            // console.log(response);
+            // setting the data
+            const {data} = response;
+            localStorage.setItem("jwt", data.token);
+            localStorage.setItem("user", data.user);
+            // TODO : clear above both values during signout
+            // Navigating to the dashboard\
+            navigate("/dashboard");
+            
         })
         .catch((error)=>{
-            console.log(error);
+            // console.log(JSON.stringify(error));
+            console.log(error)
+            const { response } = error;
+            if(response){
+                // checking the status code.
+                if(response.status === 401){
+                    console.log("password does not match");
+                    toast("Please check the credentials");
+                    setPassword("");
+                }
+            }
         })
     }
+
 
     return (
         <div className="mt-24">
