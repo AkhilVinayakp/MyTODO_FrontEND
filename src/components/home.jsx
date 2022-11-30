@@ -82,6 +82,7 @@ const Home = (props)=>{
         })
     }
 
+    
 
     return (
         <div className="mt-24">
