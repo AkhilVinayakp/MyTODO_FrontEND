@@ -1,5 +1,5 @@
 
-const Todo = (props)=>{
+const Todo = ({data})=>{
     return(
             <li className="mb-4 w-[620px] h-16 p-1 flex justify-between items-center">
                 <input
@@ -7,6 +7,7 @@ const Todo = (props)=>{
                     placeholder="double click to Type"
                     className=" todo-content input w-full max-w-[540px] input-md"
                     readOnly=""
+                    value={data.title}
                 />
                 <div>
                     <button className="btn btn-circle  btn-outline" name="close-btn">
