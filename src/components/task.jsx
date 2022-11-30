@@ -20,7 +20,7 @@ const Task = (props)=>{
     function deleteSubTask(){
         // TODO: delete the current task from loaded list and update to the backend. => useEffect
 
-    }
+    } 
 
     return(
         <div className="flex justify-center items-center gap-4 w-auto mb-1 py-1 px-1">

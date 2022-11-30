@@ -52,7 +52,8 @@ const Main = ()=>{
      }
 
     function addTask(event) {
-        
+        setTodoes([...todos, {}])
+        console.log("todos ", todos)
     }
 
     // console.log(jwt)
@@ -73,17 +74,12 @@ const Main = ()=>{
                     </div>
                     <div className="main-content flex flex-col ml-12">
                     <ul id="todos" className="text-xl max-h-[526px] overflow-y-auto" ref={parent}>
-                        {todos.map((item)=>(<Todo data={item} key={item._id}></Todo>))}
+                        {todos.map((item, i)=>(<Todo data={item} key={item._id || i}></Todo>))}
                     </ul>
                     <button id="addTask" className="btn btn-wide btn-outline mt-12" onClick={addTask}>
                         Add Task
                     </button>
                     </div>
-                </div>
-                <div className="card-actions justify-end mt-12">
-                    <button id="clear" className="btn btn-primary">
-                    Clear All!
-                    </button>
                 </div>
                 </div>
             </div>
