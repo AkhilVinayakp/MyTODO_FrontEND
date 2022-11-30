@@ -27,7 +27,7 @@ const Main = ()=>{
               {
                 subTask: "subtask name updated 3",
                 createDate: "2022-11-25T18:19:21.359Z",
-                isComplete: false,
+                isComplete: true,
                 _id: "63810729df377ed32a04aeab"
               }
             ]
@@ -73,10 +73,7 @@ const Main = ()=>{
                     </div>
                     <div className="main-content flex flex-col ml-12">
                     <ul id="todos" className="text-xl max-h-[526px] overflow-y-auto" ref={parent}>
-                        {todos.map((todo_data)=>{
-                            <Todo data={todo_data}></Todo>
-                        })}
-                        
+                        {todos.map((item)=>(<Todo data={item} key={item._id}></Todo>))}
                     </ul>
                     <button id="addTask" className="btn btn-wide btn-outline mt-12" onClick={addTask}>
                         Add Task
