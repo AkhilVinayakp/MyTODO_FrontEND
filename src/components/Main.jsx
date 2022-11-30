@@ -1,38 +1,21 @@
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import Todo from "./Todo";
 import { useAutoAnimate } from '@formkit/auto-animate/react'
+import { ToastContainer, toast } from 'react-toastify';
+import axios from "axios";
+import { API } from "../backend";
 
 
 const Main = ()=>{
     // useEffect hook to check whether the user is already logged in or not
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    let userId = "";
     // adding the autoAnimate feature
     const [parent, disableAnime] = useAutoAnimate();
         /**
      * setting up the data  
      */
-    const [todos, setTodoes] = useState([
-        {
-            _id: "637f609c33426d561f5b9aa1",
-            title: "Create todo App",
-            createDate: "2022-11-24T12:16:28.731Z",
-            user_id: "637e256c5381a4cb6f5e591e",
-            task: [
-              {
-                subTask: "subtask name updated 2",
-                createDate: "2022-11-25T18:18:53.553Z",
-                isComplete: false,
-                _id: "6381070ddf377ed32a04aea3"
-              },
-              {
-                subTask: "subtask name updated 3",
-                createDate: "2022-11-25T18:19:21.359Z",
-                isComplete: true,
-                _id: "63810729df377ed32a04aeab"
-              }
-            ]
-          }
-    ]);
+    const [todos, setTodoes] = useState([]);
     useEffect(()=>{
         // getting the data from local storage
         // console.log("runnin effect")
@@ -41,14 +24,30 @@ const Main = ()=>{
         if(user && jwt){
             setIsAuthenticated(true)
             console.log("authenticated")
+            axios.get(`${API.todoApi}/todoes/${user._id}`, {
+                headers: {
+                    Authorization: `Bearer ${jwt}`
+                },
+                // withCredentials: true
+            }).then((response)=>{
+                setTodoes(response.data.data);
+            }).catch((error)=>{
+                console.log("can not connect to backend:", error);
+                toast("Loading error.... Please logout and try again")
+            })
         }
+        useId = user._id;
+        toast(`Hey Welcome ${user.name}`);
     }, []);
+
     if(!isAuthenticated){
         
         return (
-            <h1 className="flex justify-center flex-col gap-6 items-center">You are Not Authorized to visit this page Please login
-                <a href="/">Go to Login</a>
-            </h1>
+            <>
+                <h1 className="flex justify-center flex-col gap-6 items-center">You are Not Authorized to visit this page Please login
+                    <a href="/">Go to Login</a>
+                </h1>
+            </>
         )
      }
 
@@ -59,6 +58,7 @@ const Main = ()=>{
     // console.log(jwt)
     return(
         <div className="flex justify-center h-screen items-center py-12">
+            <ToastContainer></ToastContainer>
             <div className="card w-[956px] h-full glass">
                 <div className="card-body">
                 <div className="flex  gap-24">
