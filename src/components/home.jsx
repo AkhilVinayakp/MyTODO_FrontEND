@@ -61,7 +61,7 @@ const Home = (props)=>{
             // setting the data
             const {data} = response;
             localStorage.setItem("jwt", data.token);
-            localStorage.setItem("user", data.user);
+            localStorage.setItem("user",JSON.stringify(data.user));
             // TODO : clear above both values during signout
             // Navigating to the dashboard\
             navigate("/dashboard");
@@ -82,7 +82,7 @@ const Home = (props)=>{
         })
     }
 
-    
+
 
     return (
         <div className="mt-24">

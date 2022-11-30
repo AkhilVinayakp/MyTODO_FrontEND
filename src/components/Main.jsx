@@ -1,13 +1,30 @@
 import { useEffect, useState } from "react";
 import Todo from "./Todo";
-import { Navigate } from "react-router-dom";
 
 const Main = ()=>{
     // useEffect hook to check whether the user is already logged in or not
-    const [isAuthenticated, setIsAuthenticated] = useState(true);
-    const user = localStorage.getItem("user");
-    const jwt = localStorage.getItem("jwt");
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    useEffect(()=>{
+        // getting the data from local storage
+        // console.log("runnin effect")
+        const user = JSON.parse(localStorage.getItem("user"));
+        const jwt = localStorage.getItem("jwt");
+        if(user && jwt){
+            setIsAuthenticated(true)
+            console.log("authenticated")
+        }
+    }, []);
+    if(!isAuthenticated){
+        
+        return (
+            <h1 className="flex justify-center flex-col gap-6 items-center">You are Not Authorized to visit this page Please login
+                <a href="/">Go to Login</a>
+            </h1>
+        )
+     }
 
+
+    // console.log(jwt)
     return(
         <div className="flex justify-center h-screen items-center py-12">
             <div className="card w-[956px] h-full glass">
@@ -18,7 +35,7 @@ const Main = ()=>{
                     <div className="btn gap-2">
                         <div id="count_T" className="badge badge-secondary">
                         00
-                        </div>{" "}
+                        </div>
                         TODOS
                     </div>
                     </div>
