@@ -80,10 +80,10 @@ const Main = ()=>{
                                 </div>
                             </label>
                             <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-32">
-                                <li><a onClick={()=>toast("We be avaiable soon")}>Settings</a></li>
-                                <li><a onClick={()=>toast("We be avaiable soon")}>Search</a></li>
-                                <li><a onClick={()=>toast("We be avaiable soon")}>Sort</a></li>
-                                <li><a onClick={singOut}>Logout</a></li>
+                                <li><button onClick={()=>toast("We be avaiable soon")}>Settings</button></li>
+                                <li><button onClick={()=>toast("We be avaiable soon")}>Search</button></li>
+                                <li><button onClick={()=>toast("We be avaiable soon")}>Sort</button></li>
+                                <li><button onClick={singOut}>Logout</button></li>
                             </ul>
                         </div>
                     </div>
