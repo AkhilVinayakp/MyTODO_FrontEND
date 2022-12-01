@@ -41,6 +41,9 @@ const Todo = ({data})=>{
                 }
             }).then((response)=>{
                 console.log(response);
+                // updating the _id from the backend to current created todo
+                const newTodo = response.data;
+                setTodo({...todo, _id:newTodo.todo._id});
             }).catch((error)=>{
                 console.log(error);
                 toast("sothing went wrong in backend please try again")
@@ -55,18 +58,28 @@ const Todo = ({data})=>{
     const deleteTodo = (e)=>{
         setTodoHide(true);
         // <API.todoapi>/todoes/<userid>/delete/<todoid>
-        axios.delete(`${API.todoApi}/todoes/${user._id}/delete/${todo._id}`,{
-            headers:{
-                Authorization: `Bearer ${jwt}`
-            }
-        }).then((response)=>{
-            console.log("todo delteted successfully")
-            toast(`${todo.title} Removed`);
-
-        }).catch((err)=>{
-            console.log(err);
-            toast("Could not delete from backend please try again after realoading");
-        })
+        if(todo.title){
+            axios.delete(`${API.todoApi}/todoes/${user._id}/delete/${todo._id}`,{
+                headers:{
+                    Authorization: `Bearer ${jwt}`
+                }
+            }).then((response)=>{
+                console.log("todo delteted successfully")
+                toast(`${todo.title} Removed`);
+    
+            }).catch((err)=>{
+                console.log(err);
+                toast("Could not delete from backend please try again after realoading");
+            })
+        }
+    }
+    const createSubTask = (e)=>{
+        // ui append
+        if(!todo.title){
+            toast("Add Todo Title first..");
+            return;
+        }
+        setTodo({...todo, task:[...todo.task,{}]});
     }
 
     return(
@@ -85,7 +98,7 @@ const Todo = ({data})=>{
                     onBlur={updateData}
                 />
                 {show && <div className="bg-[#2a303c] mt-2 rounded-md w-[85%] p-1 overflow-y-auto float-right mr-8">
-                    {todo.task && todo.task.map((sitem)=>(<Task sdata={sitem} todoKey={data._id} key={sitem._id}></Task>))}
+                    {todo.task && todo.task.map((sitem, i)=>(<Task sdata={sitem} todoKey={data._id} key={sitem._id || i}></Task>))}
                 </div>}
             </div>
             <div>
@@ -106,7 +119,7 @@ const Todo = ({data})=>{
                         />
                     </svg>
                 </button>):(
-                    <button className="btn btn-circle btn-success" name="close-btn">
+                    <button className="btn btn-circle btn-success" name="addTask" onClick={createSubTask}>
                         <SvgComponent></SvgComponent>
                     </button>
                 )}
