@@ -6,16 +6,14 @@ const App = ()=>{
     return(
         <>
             <Router>
-                <nav className="">
-                    <ul className="flex border-2 gap-12">
-                        <li>
-                            <Link to="/">HOME</Link>
-                        </li>
-                        <li>
-                            <Link to="/dashboard">Dashboard</Link>
-                        </li>
-                    </ul>
-                </nav>
+            <ul className="menu menu-vertical lg:menu-horizontal bg-base-100 rounded-box">
+                <li>
+                    <Link to="/">HOME</Link>
+                </li>
+                <li>
+                    <Link to="/dashboard">Dashboard</Link>
+                </li>
+            </ul>
 
                 <Routes>
                     <Route path="/" element={<Home></Home>}></Route>

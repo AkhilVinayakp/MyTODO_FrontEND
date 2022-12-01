@@ -66,21 +66,26 @@ const Main = ()=>{
 
     // console.log(jwt)
     return(
-        <div className="flex justify-center h-screen items-center py-12">
+        <div className="flex justify-center  items-center">
             <ToastContainer></ToastContainer>
-            <div className="card w-[956px] h-full glass">
+            <div className="card w-[986px] h-full glass">
                 <div className="card-body">
                 <div className="flex  gap-24">
-                    <div className="side-content">
-                    <h2 className="text-3xl mb-8">MyTODO</h2>
-                    <div className="text-2xl mb-8">
-                        <img src="https://img.icons8.com/ultraviolet/80/null/user.png" />
-                        <span className="ml-2">{user.name}</span>
-                        <button className="btn btn-xs mt-1" onClick={singOut}>
-                            sign out
-                        </button>   
-                    </div>
-
+                    <div className="side-content flex justify-center">
+                        <h2 className="text-3xl pt-1">MyTODO</h2>
+                        <div className="dropdown dropdown-end ">
+                            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                                <div className="w-10 rounded-full">
+                                <img src="https://placeimg.com/80/80/people" />
+                                </div>
+                            </label>
+                            <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-32">
+                                <li><a onClick={()=>toast("We be avaiable soon")}>Settings</a></li>
+                                <li><a onClick={()=>toast("We be avaiable soon")}>Search</a></li>
+                                <li><a onClick={()=>toast("We be avaiable soon")}>Sort</a></li>
+                                <li><a onClick={singOut}>Logout</a></li>
+                            </ul>
+                        </div>
                     </div>
                     <div className="main-content flex flex-col ml-12">
                     <ul id="todos" className="text-xl max-h-[526px] overflow-y-auto" ref={parent}>
