@@ -1,17 +1,21 @@
-import { useEffect, useId, useState } from "react";
+import { useEffect, useState } from "react";
 import Todo from "./Todo";
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { ToastContainer, toast } from 'react-toastify';
 import axios from "axios";
 import { API } from "../backend";
+import { useNavigate } from "react-router-dom";
 
 
 const Main = ()=>{
     // useEffect hook to check whether the user is already logged in or not
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     let userId = "";
+    const user = JSON.parse(localStorage.getItem("user"));
+    const jwt = localStorage.getItem("jwt");
     // adding the autoAnimate feature
     const [parent, disableAnime] = useAutoAnimate();
+    const navigate = useNavigate();
         /**
      * setting up the data  
      */
@@ -19,8 +23,7 @@ const Main = ()=>{
     useEffect(()=>{
         // getting the data from local storage
         // console.log("runnin effect")
-        const user = JSON.parse(localStorage.getItem("user"));
-        const jwt = localStorage.getItem("jwt");
+
         if(user && jwt){
             setIsAuthenticated(true)
             console.log("authenticated")
@@ -35,9 +38,10 @@ const Main = ()=>{
                 console.log("can not connect to backend:", error);
                 toast("Loading error.... Please logout and try again")
             })
+            userId = user._id;
+            toast(`Hey Welcome ${user.name}`);
         }
-        useId = user._id;
-        toast(`Hey Welcome ${user.name}`);
+
     }, []);
 
     if(!isAuthenticated){
@@ -54,6 +58,11 @@ const Main = ()=>{
     function addTask(event) {
         setTodoes([...todos, {title:""}]);
     }
+    function singOut(event){
+        localStorage.removeItem("user");
+        localStorage.removeItem("jwt");
+        navigate("/");
+    }
 
     // console.log(jwt)
     return(
@@ -64,12 +73,14 @@ const Main = ()=>{
                 <div className="flex  gap-24">
                     <div className="side-content">
                     <h2 className="text-3xl mb-8">MyTODO</h2>
-                    <div className="btn gap-2">
-                        <div id="count_T" className="badge badge-secondary">
-                        00
-                        </div>
-                        TODOS
+                    <div className="text-2xl mb-8">
+                        <img src="https://img.icons8.com/ultraviolet/80/null/user.png" />
+                        <span className="ml-2">{user.name}</span>
+                        <button className="btn btn-xs mt-1" onClick={singOut}>
+                            sign out
+                        </button>   
                     </div>
+
                     </div>
                     <div className="main-content flex flex-col ml-12">
                     <ul id="todos" className="text-xl max-h-[526px] overflow-y-auto" ref={parent}>

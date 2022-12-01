@@ -43,7 +43,6 @@ const Task = (props)=>{
                 }
             }).then((response)=>{
                 console.log("subTask created");
-                console.log(response)
                 // update the id
                 const newSubTodo = response.data;
                 let newTask = newSubTodo.data.task;
