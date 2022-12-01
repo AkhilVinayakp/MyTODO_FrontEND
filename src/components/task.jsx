@@ -11,6 +11,7 @@ const Task = (props)=>{
 
     const [task, setTask] =  useState(props.sdata);
     const [taskHide, setTaskHide] = useState(false);
+    const [taskChange, setTaskChange] = useState(false);
     const mainTodo = props.todoKey;
     const user = JSON.parse(localStorage.getItem("user"));
     const jwt = localStorage.getItem("jwt");
@@ -56,8 +57,23 @@ const Task = (props)=>{
             })
 
         }
-        else if(subTitle){
+        else if(taskChange){
             // if the current does not match with state update.
+            axios.put(`${API.todoApi}/todoes/${user._id}/todo/${mainTodo}/task/${task._id}`,{
+                update:{
+                    ...task, subTask: subTitle
+                }
+            },{
+                headers:{
+                    Authorization: `Bearer ${jwt}`
+                }
+            }).then((response)=>{
+                console.log("task title changed");
+
+            }).catch((err)=>{
+                console.log(err);
+                toast("somthing went wrong, Reaload and try again");
+            })
         }
     }
     const deleteSubTask = ()=>{
@@ -109,7 +125,7 @@ const Task = (props)=>{
         <>
             {!taskHide && (
                 <div className="flex justify-center items-center gap-4 w-auto mb-1 py-1 px-1">
-                <input type="text" placeholder="Type here" className="input  input-sm w-full max-w-sm" value={task.subTask} onChange={(e)=>setTask({...task, subTask:e.target.value})} 
+                <input type="text" placeholder="Type here" className="input  input-sm w-full max-w-sm" value={task.subTask} onChange={(e)=>{setTask({...task, subTask:e.target.value}); setTaskChange(true)}} 
                 onBlur={updateSubTaskTitle}
                 />
                 <input type="checkbox" className="checkbox checkbox-success" checked={task.isComplete} onChange={updateCheck} />
