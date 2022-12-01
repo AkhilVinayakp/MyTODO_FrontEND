@@ -12,6 +12,7 @@ const Todo = ({data})=>{
     });
     const [show, setShow] = useState(false);
     const [todoHide, setTodoHide] = useState(false);
+    const [changeFlag, setChangeFlag] = useState(false); // used in updating the data
     const parent = useRef(null);
     const user = JSON.parse(localStorage.getItem("user"));
     const jwt = localStorage.getItem("jwt");
@@ -22,7 +23,7 @@ const Todo = ({data})=>{
 
     const updateData = (e)=>{
         /**
-         * updating the todo on change( blur event)
+         * updating the todo on change
          *   
          */
         const todoTitle = e.target.value;
@@ -50,8 +51,27 @@ const Todo = ({data})=>{
             })
         }
         else if(todoTitle){
-            // TODO: update
-
+            /**
+             * todoes/:uid/edit/:tid
+             */
+            if(changeFlag){
+                axios.put(`${API.todoApi}/todoes/${user._id}/edit/${todo._id}`,{
+                    title: todoTitle,
+                    /**
+                     * TODO: dueDate, doublecheck status  
+                     */
+                },{
+                    headers:{
+                        Authorization: `Bearer ${jwt}`
+                    }
+                }).then((response)=>{
+                    console.log("title updated");
+                }).catch((err)=>{
+                    console.log(err);
+                    toast("UnAble to edit title in Database");
+                })
+            }
+            setChangeFlag(false)
         }
 
     }
@@ -93,7 +113,9 @@ const Todo = ({data})=>{
                     className=" todo-content input w-full max-w-[540px] input-md"
                     readOnly=""
                     value={todo.title}
-                    onChange={(e)=>setTodo({...todo, title:e.target.value})}
+                    onChange={(e)=>{setTodo({...todo, title:e.target.value})
+                                    setChangeFlag(true);
+                                    }}
                     onClick={revel}
                     onBlur={updateData}
                 />
