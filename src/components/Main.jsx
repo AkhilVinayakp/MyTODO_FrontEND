@@ -52,8 +52,7 @@ const Main = ()=>{
      }
 
     function addTask(event) {
-        setTodoes([...todos, {}])
-        console.log("todos ", todos)
+        setTodoes([...todos, {title:""}]);
     }
 
     // console.log(jwt)
