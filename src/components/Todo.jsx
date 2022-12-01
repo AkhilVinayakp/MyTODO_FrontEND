@@ -79,7 +79,7 @@ const Todo = ({data})=>{
             toast("Add Todo Title first..");
             return;
         }
-        setTodo({...todo, task:[...todo.task,{}]});
+        setTodo({...todo, task:[...todo.task,{subTask:""}]});
     }
 
     return(
