@@ -28,11 +28,11 @@ const Home = (props)=>{
     const navigate = useNavigate();
     const registerUser = (event)=>{
         event.preventDefault();
-        if(![name, email, password].every(e=>e)){
+        if(![name, regEmail, regPass].every(e=>e)){
             toast("All fields are required");
             return;
         }
-        axios.post('/register',{
+        axios.post(`${API.userApi}/register`,{
             name,
             email:regEmail,
             password:regPass
