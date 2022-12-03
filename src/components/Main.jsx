@@ -56,8 +56,7 @@ const Main = ()=>{
         setTodoes([...todos, {title:""}]);
     }
     function singOut(event){
-        localStorage.removeItem("user");
-        localStorage.removeItem("jwt");
+        localStorage.clear()
         navigate("/");
     }
 
