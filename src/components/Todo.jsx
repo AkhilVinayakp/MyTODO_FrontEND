@@ -109,7 +109,7 @@ const Todo = ({data})=>{
             <div className="w-full" ref={parent}>
                 <input
                     type="text"
-                    placeholder="double click to Type"
+                    placeholder="click to Type"
                     className=" todo-content input w-full max-w-[540px] input-md"
                     readOnly=""
                     value={todo.title}

@@ -53,7 +53,7 @@ const Main = ()=>{
      }
 
     function addTask(event) {
-        setTodoes([...todos, {title:""}]);
+        setTodoes([...todos, {title:"",task:[]}]);
     }
     function singOut(event){
         localStorage.clear()
@@ -116,7 +116,7 @@ const Main = ()=>{
                                     <input type="text" placeholder="Search" className="input input-bordered w-[90%] border-white" onChange={searchTodo} />
                                     <div className="dropdown dropdown-right flex-end">
                                         <label tabIndex={0} className="btn btn-ghost rounded-btn">Sort</label>
-                                        <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 w-3 ml-2 rounded-sm">
+                                        <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 w-36 ml-2 rounded-sm">
                                             <li><a>By Created</a></li> 
                                             <li><a>By Modified</a></li>
                                         </ul>
