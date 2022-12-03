@@ -24,7 +24,6 @@ const Main = ()=>{
     useEffect(()=>{
         if(user && jwt && load){
             setIsAuthenticated(true)
-            console.log("authenticated")
             axios.get(`${API.todoApi}/todoes/${user._id}`, {
                 headers: {
                     Authorization: `Bearer ${jwt}`
@@ -32,6 +31,7 @@ const Main = ()=>{
                 // withCredentials: true
             }).then((response)=>{
                 setTodoes(response.data.data);
+                localStorage.setItem('todo', JSON.stringify(response.data.data))
             }).catch((error)=>{
                 console.log("can not connect to backend:", error);
                 toast("Loading error.... Please logout and try again")
@@ -68,7 +68,21 @@ const Main = ()=>{
             setload(load+1);
         }
         else{
-            const filtered = todos.filter((item)=>(item.title.toLowerCase().indexOf(searchTerm.toLowerCase())+ 1));
+            const filtered = JSON.parse(localStorage.getItem('todo')).filter((item)=>{
+                let main_index = item.title.toLowerCase().indexOf(searchTerm.toLowerCase())+1
+                if(!main_index && item.task){
+                    // search with in the subtasks
+                    const taskfilter = item.task.filter((subtask)=>{
+                       return subtask.subTask.toLowerCase().indexOf(searchTerm.toLowerCase())+ 1
+                    });
+                    if(taskfilter.length){
+                        main_index = 1 // setting a truthy value in order to select the object
+                        item.task = taskfilter;
+                    }
+                }
+                return main_index;
+            
+            });
             setTodoes(filtered);
         }
         
