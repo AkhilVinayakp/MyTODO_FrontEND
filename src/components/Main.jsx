@@ -77,7 +77,7 @@ const Main = ()=>{
                     });
                     if(taskfilter.length){
                         main_index = 1 // setting a truthy value in order to select the object
-                        item.task = taskfilter;
+                        // item.task = taskfilter;
                     }
                 }
                 return main_index;
