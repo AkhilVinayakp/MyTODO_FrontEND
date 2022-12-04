@@ -1,4 +1,4 @@
-# MyTODO frontEnd
+# MyTODO 
 ![HTML5](https://img.shields.io/badge/HTML-5-red)
 ![css3](https://img.shields.io/badge/CSS-3-blue)
 ![React](https://img.shields.io/badge/react-js-blue)
@@ -11,6 +11,7 @@
 ## Overview
 - fully fledged ToDo application using MERN Stack
 - Live Link: https://mytodo-v0.netlify.app/
+- Frontend: https://github.com/AkhilVinayakp/MyTODO_FrontEND
 - Backend: https://github.com/AkhilVinayakp/MyTODO_backend
 
 
