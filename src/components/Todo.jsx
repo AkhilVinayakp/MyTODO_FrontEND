@@ -105,7 +105,7 @@ const Todo = ({data})=>{
     return(
        <>
         {!todoHide && (
-            <li className="mb-4 w-[620px]  p-1 flex justify-between items-center">
+            <li className="sm:w-[250px] mb-4 md:w-[620px]  p-1 flex justify-between items-center">
             <div className="w-full" ref={parent}>
                 <input
                     type="text"
@@ -123,7 +123,7 @@ const Todo = ({data})=>{
                     {todo.task && todo.task.map((sitem, i)=>(<Task sdata={sitem} todoKey={data._id} key={sitem._id || i}></Task>))}
                 </div>}
             </div>
-            <div>
+            <div className="ml-2 md:ml-0">
                 {!show ? (                    
                     <button className="btn btn-circle  btn-outline" name="close-btn" onClick={deleteTodo}>
                     <svg

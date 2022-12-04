@@ -6,7 +6,7 @@ const App = ()=>{
     return(
         <>
             <Router>
-            <ul className="menu menu-vertical lg:menu-horizontal bg-base-100 rounded-box">
+            <ul className="menu menu-horizontal bg-base-100 rounded-box">
                 <li>
                     <Link to="/">HOME</Link>
                 </li>

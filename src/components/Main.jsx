@@ -89,12 +89,12 @@ const Main = ()=>{
 
     // console.log(jwt)
     return(
-        <div className="flex justify-center  items-center">
+        <div className="flex justify-center  items-center md:mt-1 mt-8 overflow-hidden">
             <ToastContainer></ToastContainer>
-            <div className="card w-[986px] h-[800px] glass">
+            <div className="w-[385px] card md:w-[986px] md:h-[800px] glass">
                 <div className="card-body">
-                <div className="flex  gap-24">
-                    <div className="side-content flex justify-center">
+                <div className="flex flex-col md:flex-row gap-6 md:gap-24">
+                    <div className="side-content flex justify-between md:justify-center ">
                         <h2 className="text-3xl pt-1">MyTODO</h2>
                         <div className="dropdown dropdown-end ">
                             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
@@ -109,12 +109,12 @@ const Main = ()=>{
                             </ul>
                         </div>
                     </div>
-                    <div className="main-content flex flex-col ml-12">
+                    <div className="main-content flex flex-col md:ml-12">
                     <div className="form-control">
                             <div className="flex mb-3">
-                                <div className="flex items-stretch gap-2 w-[620px]">
-                                    <input type="text" placeholder="Search" className="input input-bordered w-[90%] border-white" onChange={searchTodo} />
-                                    <div className="dropdown dropdown-right flex-end">
+                                <div className="flex items-stretch gap-2 w-full md:w-[620px]">
+                                    <input type="text" placeholder="Search" className="w-[100%] input input-bordered md:w-[90%] border-white" onChange={searchTodo} />
+                                    <div className="hidden md:block dropdown dropdown-right flex-end">
                                         <label tabIndex={0} className="btn btn-ghost rounded-btn">Sort</label>
                                         <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 w-36 ml-2 rounded-sm">
                                             <li><a>By Created</a></li> 
@@ -124,7 +124,7 @@ const Main = ()=>{
                                 </div>
                             </div>
                         </div>
-                    <ul id="todos" className="text-xl max-h-[526px] overflow-y-auto" ref={parent}>
+                    <ul id="todos" className="text-xl max-h-[420px] md:max-h-[526px] overflow-y-auto" ref={parent}>
                         {todos.map((item, i)=>(<Todo data={item} key={item._id || i}></Todo>))}
                     </ul>
                     <button id="addTask" className="btn btn-wide btn-outline mt-12" onClick={addTask}>
