@@ -387,3 +387,36 @@
         opacity: 0;
     }
 }
+
+@media screen and (max-width: 428px) {
+
+    .container_home{
+        max-width: 320px;
+        font-size: 10px;
+        overflow: hidden;
+    }
+    .card_home.alt{
+        position: absolute;
+        top: 40px;
+        right: -20px;
+        z-index: 10;
+        width: 90px;
+        height: 90px;
+        background: none;
+        border-radius: 100%;
+        box-shadow: none;
+        padding: 0;
+        transition: 0.3s ease;
+    }
+    .card_home.alt .toggle{
+        width: 90px;
+        height: 90px;
+        font-size: 48px;
+        line-height: 90px;
+    }
+    .card_home .button-container_home button {
+
+        width: 140px;
+  
+    }
+}
